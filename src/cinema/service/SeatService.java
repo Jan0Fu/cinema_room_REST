@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,15 +37,11 @@ public class SeatService {
                     s.setAvailable(false);
                     return seatRepository.createTicket(s);
                 } else {
-                    Map<String, String> map = new HashMap<>();
-                    map.put("error", "The ticket has been already purchased!");
-                    return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity<>(Map.of("error", "The ticket has been already purchased!"), HttpStatus.BAD_REQUEST);
                 }
             }
         }
-        Map<String, String> map = new HashMap<>();
-        map.put("error","The number of a row or a column is out of bounds!");
-        return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(Map.of("error", "The number of a row or a column is out of bounds!"), HttpStatus.BAD_REQUEST);
     }
 
     public ResponseEntity<Object> returnTicket(String token) {

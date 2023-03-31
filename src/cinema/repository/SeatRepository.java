@@ -42,16 +42,11 @@ public class SeatRepository {
     }
 
     public ResponseEntity<Object> returnTicket(String token) {
-        var map = new HashMap<String, Object>();
-        if (tokens.containsKey(token)) {
-            Seat seat = tokens.get(token);
-            if (seat != null) {
-                seat.setAvailable(true);
-                map.put("returned_ticket", seat);
-                return new ResponseEntity<>(map, HttpStatus.OK);
-            }
+        Seat seat = tokens.get(token);
+        if (seat != null) {
+            seat.setAvailable(true);
+            return new ResponseEntity<>(Map.of("returned_ticket", seat), HttpStatus.OK);
         }
-        map.put("error", "Wrong token!");
-        return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(Map.of("error", "Wrong token!"), HttpStatus.BAD_REQUEST);
     }
 }
