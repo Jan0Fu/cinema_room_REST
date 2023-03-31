@@ -1,4 +1,4 @@
-package cinema;
+package cinema.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -16,11 +16,7 @@ public class Seat {
         this.row = row;
         this.column = column;
         this.available = true;
-        if (this.row <= 4) {
-            this.price = 10;
-        } else {
-            this.price = 8;
-        }
+        this.price = this.row <= 4 ? 10 : 8;
     }
 
     public int getRow() {
