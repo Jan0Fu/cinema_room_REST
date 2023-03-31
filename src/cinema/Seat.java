@@ -6,6 +6,7 @@ public class Seat {
 
     private int row;
     private int column;
+    private int price;
     @JsonIgnore
     private boolean available;
 
@@ -15,6 +16,11 @@ public class Seat {
         this.row = row;
         this.column = column;
         this.available = true;
+        if (this.row <= 4) {
+            this.price = 10;
+        } else {
+            this.price = 8;
+        }
     }
 
     public int getRow() {
@@ -33,6 +39,14 @@ public class Seat {
         this.column = column;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     public boolean isAvailable() {
         return available;
     }
@@ -46,6 +60,7 @@ public class Seat {
         return "Seat{" +
                 "row=" + row +
                 ", column=" + column +
+                ", price=" + price +
                 ", available=" + available +
                 '}';
     }
