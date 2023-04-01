@@ -3,6 +3,7 @@ package cinema.controller;
 import cinema.service.SeatService;
 import cinema.model.Seat;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,14 @@ public class SeatController {
 
     @PostMapping("/return")
     public ResponseEntity<Object> returnTicket(@RequestBody Map<String, String> body) {
-        return seatService.returnTicket(body.get("token"));
+        return seatService.returnTicket(body);
+    }
+
+    @PostMapping("/stats")
+    public ResponseEntity<Object> showStats(@RequestParam(required = false) String password) {
+        if (password == null) {
+            return new ResponseEntity<>(Map.of("error", "The password is wrong!"), HttpStatus.UNAUTHORIZED);
+        }
+        return seatService.getStats(password);
     }
 }
